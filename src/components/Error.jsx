@@ -2,7 +2,7 @@ const Error = ( { error }) => {
     if (!error) return null
 
     return (
-        <div className='notification error'>
+        <div className='notification error alert alert-danger'>
             {error}
         </div>
     )
