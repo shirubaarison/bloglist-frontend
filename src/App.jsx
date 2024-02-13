@@ -21,7 +21,7 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
+      setBlogs(blogs.sort((a, b) => b.likes - a.likes))
     )  
   }, [])
 
@@ -81,13 +81,35 @@ const App = () => {
         setNotification(null)
       }, 5000)
     } catch (err) {
-      setError('something went wrong')
+      setError(err.message)
       
       setTimeout(() => {
         setError(null)
       }, 5000)
     }
 }
+
+  const addLike = async (id) => {
+    const blog = blogs.find(b => b.id === id)
+    const changedBlog = { ...blog, likes: (blog.likes === null ? 1 : blog.likes + 1) };
+
+    try {
+      const response = await blogService.addLike(id, changedBlog)
+      setBlogs(blogs.map(b => b.id !== id ? b : response))
+
+      setNotification(`you liked ${blog.title}`)
+
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000)
+    } catch (err) {
+      setError(err.message)
+      
+      setTimeout(() => {
+        setError(null)
+      }, 5000)
+    }
+  }
   
   if (user) {
     return (
@@ -99,11 +121,11 @@ const App = () => {
         <div className='container'>
           <div className="row justify-content-end">
             <div className='col-auto'>
-              <p>{user.name} logged in <button className='btn btn-primary 'onClick={handleLogout}>logout</button></p> 
+              <p>{user.name} logged in <button className='btn btn-primary' onClick={handleLogout}>logout</button></p> 
             </div>
           </div>
         </div>
-        <Togglable buttonLabel="new blog" ref={blogFormRef}>
+        <Togglable buttonLabel='new blog' secondButtonLabel='cancel' ref={blogFormRef}>
           <BlogForm createBlog={addBlog} />
         </Togglable>
         <div className='container mt-5'>
@@ -112,11 +134,12 @@ const App = () => {
             <tr>
               <th>Title</th>
               <th>Author</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
           {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} addLike={() => addLike(blog.id)} />
           )}
           </tbody>
           </table>
