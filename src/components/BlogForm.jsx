@@ -19,20 +19,33 @@ const BlogForm = ({ createBlog }) => {
         setUrl('')
     }
     return (
-        <div>
-            <h2>add a blog</h2>
-            <form onSubmit={addBlog}>
-                <div>
-                title <input type='text' value={title} name="Title" onChange={({ target }) => setTitle(target.value)} />
+        <div className="container mt-5">
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="card">
+                    <div className="card-body px-4 py-4">
+                        <h5 className="card-title">add a blog</h5>
+                        <form onSubmit={addBlog}>
+                        <div className="form-group px-4 mt-3">
+                            <label htmlFor="title">title</label>
+                            <input type="text" value={title} className="form-control" name="Title" id="title" placeholder="Type title" onChange={({ target }) => setTitle(target.value)}/>
+                        </div>
+                        <div className="form-group px-4 mt-3">
+                            <label htmlFor="author">Author</label>
+                            <input type="text" value={author} className="form-control" name="Author" id="author" placeholder="Type author" onChange={({ target }) => setAuthor(target.value)} />
+                        </div>
+                        <div className="form-group px-4 mt-3">
+                            <label htmlFor="author">URL</label>
+                            <input type="text" value={url} className="form-control" name="Url" id="url" placeholder="Type URL" onChange={({ target }) => setUrl(target.value)} />
+                        </div>
+                        <div className="text-center mt-3">
+                            <button type="submit" className="btn btn-primary btn-block">create</button>
+                        </div>
+                        </form>
+                    </div>
+                    </div>
                 </div>
-                <div>
-                author <input type='text' value={author} name="Author" onChange={({ target }) => setAuthor(target.value)} />
-                </div>
-                <div>
-                url <input type='text' value={url} name="URL" onChange={({ target }) => setUrl(target.value)} />
-                </div>
-                <button className='btn btn-primary' type='submit'>create</button>
-            </form>
+            </div>
         </div>
     )
 }
