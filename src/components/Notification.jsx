@@ -1,10 +1,10 @@
 const Notification = ( { notification }) => {
-	if (!notification) return null
+    if (!notification) return null
 
-	return (
-		<div className='notification alert alert-success'>
-			{notification}
-		</div>
-	)
+    return (
+        <div className='notification alert alert-success'>
+            {notification}
+        </div>
+    )
 }
 export default Notification

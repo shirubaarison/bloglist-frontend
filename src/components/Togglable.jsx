@@ -2,38 +2,38 @@ import PropTypes from 'prop-types'
 import { useState, forwardRef, useImperativeHandle } from 'react'
 
 const Togglable = forwardRef((props, refs) => {
-	const [visible, setVisible] = useState(false)
+    const [visible, setVisible] = useState(false)
 
-	const hiddenWhenVisible = { display: visible ? 'none' : '' }
-	const shownWhenVisible = { display: visible ? '' : 'none' }
+    const hiddenWhenVisible = { display: visible ? 'none' : '' }
+    const shownWhenVisible = { display: visible ? '' : 'none' }
 
-	const toggleVisibility = () => {
-		setVisible(!visible)
-	}
+    const toggleVisibility = () => {
+        setVisible(!visible)
+    }
 
-	useImperativeHandle(refs, () => {
-		return {
-			toggleVisibility
-		}
-	})
+    useImperativeHandle(refs, () => {
+        return {
+            toggleVisibility
+        }
+    })
 
-	return (
-		<div>
-			<div style={hiddenWhenVisible}>
-				<button className='btn btn-primary btn-block' onClick={toggleVisibility}>{props.buttonLabel}</button>
-			</div>
-			<div style={shownWhenVisible}>
-				{props.children}
-				<button className='btn btn-primary btn-block mt-3' onClick={toggleVisibility}>{props.secondButtonLabel}</button>
-			</div>
-		</div>
-	)
+    return (
+        <div>
+            <div style={hiddenWhenVisible}>
+                <button className='btn btn-primary btn-block' onClick={toggleVisibility}>{props.buttonLabel}</button>
+            </div>
+            <div style={shownWhenVisible}>
+                {props.children}
+                <button className='btn btn-primary btn-block mt-3' onClick={toggleVisibility}>{props.secondButtonLabel}</button>
+            </div>
+        </div>
+    )
 })
 
 Togglable.displayName = 'Togglable'
 
 Togglable.propTypes = {
-	buttonLabel: PropTypes.string.isRequired
+    buttonLabel: PropTypes.string.isRequired
 }
 
 export default Togglable
