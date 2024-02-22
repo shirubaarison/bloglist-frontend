@@ -19,7 +19,7 @@ const BlogForm = ({ createBlog }) => {
         setUrl('')
     }
     return (
-        <div className="container mt-5">
+        <div className="container mt-5 blogForm">
             <div className="row">
                 <div className="col-md-6">
                     <div className="card">
@@ -35,7 +35,7 @@ const BlogForm = ({ createBlog }) => {
                                     <input type="text" value={author} className="form-control" name="Author" id="author" placeholder="Type author" onChange={({ target }) => setAuthor(target.value)} />
                                 </div>
                                 <div className="form-group px-4 mt-3">
-                                    <label htmlFor="author">URL</label>
+                                    <label htmlFor="Url">URL</label>
                                     <input type="text" value={url} className="form-control" name="Url" id="url" placeholder="Type URL" onChange={({ target }) => setUrl(target.value)} />
                                 </div>
                                 <div className="text-center mt-3">
