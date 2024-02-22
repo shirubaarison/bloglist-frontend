@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 const Blog = ({ blog, addLike, removeBlog }) => {
     const [showDetails, setShowDetails] = useState(false)
 
-    const username = JSON.parse(window.localStorage.getItem('loggedBloglistUser')).username
+    const storedUser = JSON.parse(window.localStorage.getItem('loggedBloglistUser'))
+    const username = storedUser ? storedUser.username : ''
 
     const showDeleteButton = blog.user.username === username ? true : false
 
@@ -12,13 +13,13 @@ const Blog = ({ blog, addLike, removeBlog }) => {
 
     return (
         <tr>
-            <td>{blog.title}</td>
-            <td>{blog.author}</td>
+            <td className='blogName'>{blog.title}</td>
+            <td className='blogAuthor'>{blog.author}</td>
             <td>
                 <div style={hideWhenVisible}>
                     <button className='btn btn-outline-secondary btn-block' onClick={() => setShowDetails(true)}>view</button>
                 </div>
-                <div style={shownWhenVisible} className="card">
+                <div style={shownWhenVisible} className="card blogDetails">
                     <div className="card-body">
                         <h5 className="card-title">{blog.title}</h5>
                         <p className="card-text">Author: {blog.author}</p>
