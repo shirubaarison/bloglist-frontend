@@ -95,7 +95,9 @@ const App = () => {
 
         try {
             const response = await blogService.addLike(id, changedBlog)
-            setBlogs(blogs.map(b => b.id !== id ? b : response))
+            const newBlogs = blogs.map(b => b.id !== id ? b : response)
+            const sortedBlogs = [...newBlogs].sort((a, b) => b.likes - a.likes)
+            setBlogs(sortedBlogs)
 
             setNotification(`you liked ${blog.title}`)
 
