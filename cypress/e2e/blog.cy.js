@@ -106,13 +106,21 @@ describe('Blog app', () => {
                 cy.createBlog({ title: 'second most liked blog', author: 'tester', url: 'http://localhost:5173', likes: 200 })
                 cy.createBlog({ title: 'test4', author: 'tester', url: 'http://localhost:5173', likes: 150 })
                 cy.createBlog({ title: 'most liked blog', author: 'tester', url: 'http://localhost:5173', likes: 43059 })
-                cy.createBlog({ title: 'least liked blog', author: 'tester', url: 'http://localhost:5173', likes: 1 })
+                cy.createBlog({ title: 'least liked blog', author: 'tester', url: 'http://localhost:5173', likes: 0 })
+                cy.createBlog({ title: 'like it to not be the least liked blog pls', author: 'tester', url: 'http://localhost:5173', likes: 0 })
             })
 
             it('it is in order', function() {
                 cy.get('.blogName').eq(0).should('contain', 'most liked blog')
                 cy.get('.blogName').eq(1).should('contain', 'second most liked blog')
-                cy.get('.blogName').eq(5).should('contain', 'least liked blog')
+
+                cy.contains('like it to not be the least liked blog pls').parent().find('#view-button').as('viewButton')
+                cy.get('@viewButton').click()
+                cy.contains('like it to not be the least liked blog pls').parent().find('#like-button').as('likeButton')
+                cy.get('@likeButton').click()
+                cy.get('.notification').should('contain', 'you liked')
+
+                cy.get('.blogName').eq(6).should('contain', 'least liked blog')
             })
         })
     })
