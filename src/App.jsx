@@ -155,7 +155,7 @@ const App = () => {
                         </Togglable>
                     </div>
                     <div className='container mt-5'>
-                        <table className='table'>
+                        <table className='table' id="blog-table">
                             <thead>
                                 <tr>
                                     <th>Title</th>
