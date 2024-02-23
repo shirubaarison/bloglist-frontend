@@ -34,7 +34,7 @@ const LoginForm = ( { handleLogin }) => {
                                     <input type="password" value={password} className="form-control" name="Password" id="password" placeholder="Enter password" onChange={({ target }) => setPassword(target.value)} />
                                 </div>
                                 <div className="text-center mt-3">
-                                    <button type="submit" className="btn btn-primary btn-block">Login</button>
+                                    <button type="submit" className="btn btn-primary btn-block" id="login-button">Login</button>
                                 </div>
                             </form>
                         </div>
